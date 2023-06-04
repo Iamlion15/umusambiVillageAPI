@@ -7,7 +7,7 @@ const checkAuth=async(req,res,next)=>{
         req.admin=user.username;
         next();
     } catch (error) {
-        res.status(300).json({"message":"authentication expired"});
+        res.status(403).json({"message":"authentication expired"});
     }
 }
 

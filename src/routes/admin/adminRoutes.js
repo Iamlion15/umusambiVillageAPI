@@ -9,6 +9,7 @@ router.post("/modifyvisitor",checkAuth,adminController.updatevisitor);
 router.delete("/deletevisitor",checkAuth,adminController.deletevisitor);
 router.get("/getvisitors",checkAuth,adminController.getallvisitors);
 router.post("/login",adminController.login);
+router.post("/findvisitor",checkAuth,adminController.findVisitor);
 
 export default router;
 
