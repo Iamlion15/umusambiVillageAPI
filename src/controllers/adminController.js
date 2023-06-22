@@ -20,13 +20,21 @@ class adminController {
         }
     }
     static async addvisitor(req, res) {
-        const check = checkVisitor(req.body.nID);
         const visitor = new visitorModel(req.body);
         try {
             const data = await visitor.save();
             res.status(200).json({ "message": "successfully saved" })
-        } catch (error) {
-            res.status(400).json(error.message);
+        }
+
+        catch (error) {
+            if (error.code === 11000) {
+                res.status(405).json({ "message": "email has been used" });
+            }
+            else {
+                res.status(400).json(error.message);
+                console.log(error);
+                console.log(error.code);
+            }
         }
     }
     static async book(req, res) {
@@ -51,6 +59,16 @@ class adminController {
             res.status(200).json({ "code": "yes", "message": visitor })
         }
     }
+
+    static async findBooking(req, res) {
+        try {
+            const visitors = await historyModel.find().populate('visitor');
+            res.status(200).json(visitors)
+        } catch (error) {
+            res.status(400).json(error.message);
+        }
+    }
+
     static async updatevisitor(req, res) {
         const visitor = await visitorModel.findOne({ nID: req.body.nID });
         try {
