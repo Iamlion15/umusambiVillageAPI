@@ -51,6 +51,17 @@ class adminController {
 
     }
     static async findVisitor(req, res) {
+        const nid = req.params.id
+        const visitor = await visitorModel.findOne({ _id: nid })
+        if (visitor == null) {
+            res.status(200).json({ "code": "no", "message": "visitor not found" })
+        }
+        else {
+            res.status(200).json({ "code": "yes", "message": visitor })
+        }
+    }
+
+    static async findOneVisitor(req, res) {
         const visitor = await visitorModel.findOne({ nID: req.body.nID })
         if (visitor == null) {
             res.status(200).json({ "code": "no", "message": "visitor not found" })
@@ -95,6 +106,7 @@ class adminController {
             res.status(400).json(error.message);
         }
     }
+    
 
 
 }

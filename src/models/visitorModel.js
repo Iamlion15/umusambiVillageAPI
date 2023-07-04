@@ -22,7 +22,7 @@ const visitorSchema=new Schema({
         type:String,
         required:true,
     }
-})
+},{timestamps:true})
 
 const visitorModel=model("visitor",visitorSchema);
 export default visitorModel;

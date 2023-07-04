@@ -2,6 +2,8 @@ import express from "express";
 import adminController from "../../controllers/adminController";
 import checkAuth from "../../middlewares/checkAuthentication";
 import checkVisitor from "../../middlewares/checkVisitor";
+import visitorAuthController from "../../controllers/visitorAuthenticationController";
+import staticsController from "../../controllers/statisticsController";
 
 const router=express.Router();
 
@@ -10,9 +12,12 @@ router.post("/modifyvisitor",checkAuth,adminController.updatevisitor);
 router.delete("/deletevisitor",checkAuth,adminController.deletevisitor);
 router.get("/getvisitors",checkAuth,adminController.getallvisitors);
 router.post("/login",adminController.login);
-router.post("/findvisitor",checkAuth,adminController.findVisitor);
-router.post("/book",checkAuth,adminController.book);
-router.get("/bookings",checkAuth,adminController.findBooking);
+router.get("/findvisitor/:id",checkAuth,adminController.findVisitor);
+router.post("/findonevisitor",checkAuth,adminController.findOneVisitor);
+router.get("/weeklyvisit",staticsController.computeWeeklyVisitation);
+router.get("/dailyvisit",staticsController.computeDailyVisitation);
+router.get("/weeklyuser",staticsController.computeWeeklyUsers);
+router.get("/history",checkAuth,adminController.findBooking);
 
 export default router;
 

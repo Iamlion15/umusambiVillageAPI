@@ -1,5 +1,6 @@
 import express from "express";
 import authController from "../../controllers/visitorAuthenticationController";
+import checkAuth from "../../middlewares/checkAuthentication";
 const router=express.Router();
 import session from 'express-session';
 router.use(session({
@@ -11,7 +12,7 @@ router.use(session({
       }
   }));
 
-router.post("/getotp",authController.getOTP);
+router.post("/book",checkAuth,authController.book_OTP);
 router.post("/login",authController.visitorLogin);
 
 export default router;
