@@ -21,7 +21,13 @@ const visitorSchema=new Schema({
     phone:{
         type:String,
         required:true,
-    }
+    },
+	password:{
+        type:String,
+        required:true,
+    },
+	
+	
 },{timestamps:true})
 
 const visitorModel=model("visitor",visitorSchema);

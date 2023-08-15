@@ -63,7 +63,7 @@ class staticsController {
                 percentageChange = ((todayCount - previousDayCount) / previousDayCount * 100)
             }
 
-            res.status(200).json({ "TodayCount": todayCount, "previousDayCount": previousDayCount, "percentage": percentageChange, "todayStart": todayStart, "todayEnd": todayEnd, "previousDayStart": previousDayStart, "previousDayEnd": previousDayEnd, });
+            res.status(200).json({ " ": todayCount, "previousDayCount": previousDayCount, "percentage": percentageChange, "todayStart": todayStart, "todayEnd": todayEnd, "previousDayStart": previousDayStart, "previousDayEnd": previousDayEnd, });
         } catch (error) {
             console.log(error);
             res.status(404).json(error.message);
