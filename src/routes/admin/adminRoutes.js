@@ -18,6 +18,8 @@ router.get("/weeklyvisit",staticsController.computeWeeklyVisitation);
 router.get("/dailyvisit",staticsController.computeDailyVisitation);
 router.get("/weeklyuser",staticsController.computeWeeklyUsers);
 router.get("/history",checkAuth,adminController.findBooking);
+router.post("/visitstats",checkAuth,staticsController.getVisitorsInRange)
+router.post("/paymentStats",checkAuth,staticsController.getVisitorsTotalPaymentInRange)
 
 export default router;
 

@@ -1,5 +1,6 @@
 import historyModel from "../models/historyModel";
 import mongoose from "mongoose";
+import visitorModel from "../models/visitorModel";
 
 class staticsController {
     static async computeWeeklyVisitation(req, res) {
@@ -102,6 +103,52 @@ class staticsController {
             res.status(404).json(error.message);
         }
     }
+    static async getVisitorsInRange(req, res) {
+        const { startDate, endDate } = req.body;
+    
+        try {
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+    
+            const visitors = await visitorModel.find({
+                createdAt: { $gte: start, $lte: end }
+            });
+    
+            res.status(200).json({ visitors });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json(error.message);
+        }
+    }
+    static async getVisitorsTotalPaymentInRange(req, res) {
+        const { startDate, endDate } = req.body;
+    
+        try {
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+    
+            // Find visitors within the date range
+            const visitors = await historyModel.find({
+                createdAt: { $gte: start, $lte: end }
+            }).populate('visitor');
+    
+            // Calculate the total number of payments made by visitors within the date range
+            let totalPayments = 0;
+            visitors.forEach(visitor => {
+                // Assuming the payment information is stored in the fees field
+                totalPayments += visitor.fees || 0;
+            });
+
+    
+            res.status(200).json({ visitors, totalPayments });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json(error.message);
+        }
+    }
+    
+    
+
 }
 
 export default staticsController

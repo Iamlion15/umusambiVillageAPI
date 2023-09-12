@@ -5,7 +5,7 @@ const generateToken=async(username)=>{
     const token=await jwt.sign(
         {username},
         process.env.TOKEN_SECRET,{
-            expiresIn:'20m'
+            expiresIn:'55m'
         }
     )
     return token;
